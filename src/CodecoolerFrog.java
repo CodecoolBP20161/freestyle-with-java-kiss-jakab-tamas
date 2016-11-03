@@ -135,6 +135,8 @@ public class CodecoolerFrog extends Application implements EventHandler<ActionEv
         layout1.getChildren().addAll(label0, label1, btnPlay, btnExit, label2);
         menu = new Scene(layout1,800, 600);
 
+        menu.getStylesheets().add(CodecoolerFrog.class.getResource("images/menu.css").toExternalForm());
+
         menu.setOnKeyPressed(event -> {
             switch (event.getCode()) {
                 case ESCAPE:
@@ -147,6 +149,8 @@ public class CodecoolerFrog extends Application implements EventHandler<ActionEv
         });
 
         game = new Scene(createContent());
+
+        game.getStylesheets().add(CodecoolerFrog.class.getResource("images/game.css").toExternalForm());
 
         game.setOnKeyPressed(event -> {
             switch (event.getCode()) {
