@@ -1,0 +1,8 @@
+.root {
+    -fx-background-image: url("codecool.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-attachment: fixed;
+    -fx-background-position: 50% 15%;
+    -fx-background-color: aqua;
+    -fx-font: bold italic 12pt "Arial";
+}
