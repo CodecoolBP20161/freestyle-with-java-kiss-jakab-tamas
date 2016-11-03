@@ -15,6 +15,7 @@
         import javafx.scene.paint.Color;
         import javafx.scene.shape.Rectangle;
         import javafx.scene.text.Font;
+        import javafx.scene.text.FontWeight;
         import javafx.scene.text.Text;
         import javafx.stage.Stage;
         import javafx.util.Duration;
@@ -22,7 +23,7 @@
         import java.util.List;
 
 
-public class CodecoolerFrog extends Application implements EventHandler<ActionEvent>{
+public class CodecoolerVsBugs extends Application implements EventHandler<ActionEvent>{
 
     private Button btnPlay;
     private Button btnExit;
@@ -33,16 +34,16 @@ public class CodecoolerFrog extends Application implements EventHandler<ActionEv
 
     private Pane root;
 
-    private List<Node> cars = new ArrayList<>();
-    private Node frog;
+    private List<Node> bugs = new ArrayList<>();
+    private Node codecooler;
 
     private Parent createContent() {
         root = new Pane();
         root.setPrefSize(800, 600);
 
-        frog = initFrog();
+        codecooler = initCodecooler();
 
-        root.getChildren().add(frog);
+        root.getChildren().add(codecooler);
 
         timer = new AnimationTimer() {
             @Override
@@ -55,15 +56,15 @@ public class CodecoolerFrog extends Application implements EventHandler<ActionEv
         return root;
     }
 
-    private Node initFrog() {
-        Rectangle rect = new Rectangle(38, 38, Color.GREEN);
+    private Node initCodecooler() {
+        Rectangle rect = new Rectangle(38, 38, Color.BLUE);
         rect.setTranslateY(600 - 39);
 
         return rect;
     }
 
-    private Node spawnCar() {
-        Rectangle rect = new Rectangle(40, 40, Color.RED);
+    private Node spawnBugs() {
+        Rectangle rect = new Rectangle(40, 40, Color.BLACK);
         rect.setTranslateY((int)(Math.random() * 14) * 40);
 
         root.getChildren().add(rect);
@@ -71,26 +72,26 @@ public class CodecoolerFrog extends Application implements EventHandler<ActionEv
     }
 
     private void onUpdate() {
-        for (Node car : cars)
-            car.setTranslateX(car.getTranslateX() + Math.random() * 10);
+        for (Node bug : bugs)
+            bug.setTranslateX(bug.getTranslateX() + Math.random() * 10);
 
         if (Math.random() < 0.075) {
-            cars.add(spawnCar());
+            bugs.add(spawnBugs());
         }
 
         checkState();
     }
 
     private void checkState() {
-        for (Node car : cars) {
-            if (car.getBoundsInParent().intersects(frog.getBoundsInParent())) {
-                frog.setTranslateX(0);
-                frog.setTranslateY(600 - 39);
+        for (Node bug : bugs) {
+            if (bug.getBoundsInParent().intersects(codecooler.getBoundsInParent())) {
+                codecooler.setTranslateX(0);
+                codecooler.setTranslateY(600 - 39);
                 return;
             }
         }
 
-        if (frog.getTranslateY() <= 0) {
+        if (codecooler.getTranslateY() <= 0) {
             timer.stop();
             String win = "YOU WIN codecooler!";
 
@@ -102,13 +103,15 @@ public class CodecoolerFrog extends Application implements EventHandler<ActionEv
             for (int i = 0; i < win.toCharArray().length; i++) {
                 char letter = win.charAt(i);
 
-                Text text = new Text(String.valueOf(letter));
-                text.setFont(Font.font(50));
-                text.setOpacity(0);
+                Text codecoolerWinsText = new Text(String.valueOf(letter));
+                codecoolerWinsText.setFont(Font.font ("Verdana", FontWeight.BOLD, 50));
+                codecoolerWinsText.setFill(Color.BLANCHEDALMOND);
+                codecoolerWinsText.setOpacity(0);
 
-                hBox.getChildren().add(text);
+                hBox.getChildren().add(codecoolerWinsText);
+                hBox.setStyle("-fx-background-color: #336699;");
 
-                FadeTransition ft = new FadeTransition(Duration.seconds(0.66), text);
+                FadeTransition ft = new FadeTransition(Duration.seconds(0.66), codecoolerWinsText);
                 ft.setToValue(1);
                 ft.setDelay(Duration.seconds(i * 0.15));
                 ft.play();
@@ -135,7 +138,7 @@ public class CodecoolerFrog extends Application implements EventHandler<ActionEv
         layout1.getChildren().addAll(label0, label1, btnPlay, btnExit, label2);
         menu = new Scene(layout1,800, 600);
 
-        menu.getStylesheets().add(CodecoolerFrog.class.getResource("images/menu.css").toExternalForm());
+        menu.getStylesheets().add(CodecoolerVsBugs.class.getResource("images/menu.css").toExternalForm());
 
         menu.setOnKeyPressed(event -> {
             switch (event.getCode()) {
@@ -150,21 +153,21 @@ public class CodecoolerFrog extends Application implements EventHandler<ActionEv
 
         game = new Scene(createContent());
 
-        game.getStylesheets().add(CodecoolerFrog.class.getResource("images/game.css").toExternalForm());
+        game.getStylesheets().add(CodecoolerVsBugs.class.getResource("images/game.css").toExternalForm());
 
         game.setOnKeyPressed(event -> {
             switch (event.getCode()) {
                 case W:
-                    frog.setTranslateY(frog.getTranslateY() - 40);
+                    codecooler.setTranslateY(codecooler.getTranslateY() - 40);
                     break;
                 case S:
-                    frog.setTranslateY(frog.getTranslateY() + 40);
+                    codecooler.setTranslateY(codecooler.getTranslateY() + 40);
                     break;
                 case A:
-                    frog.setTranslateX(frog.getTranslateX() - 40);
+                    codecooler.setTranslateX(codecooler.getTranslateX() - 40);
                     break;
                 case D:
-                    frog.setTranslateX(frog.getTranslateX() + 40);
+                    codecooler.setTranslateX(codecooler.getTranslateX() + 40);
                     break;
                 case ESCAPE: window.setScene(menu);
                 default:
