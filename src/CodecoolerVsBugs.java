@@ -30,9 +30,10 @@
 public class CodecoolerVsBugs extends Application implements EventHandler<ActionEvent>{
 
     private Button btnPlay;
+    private Button btnInstructions;
     private Button btnExit;
     private Stage window;
-    private Scene menu, game;
+    private Scene menu, instructions, game;
 
     private AnimationTimer timer;
 
@@ -132,27 +133,31 @@ public class CodecoolerVsBugs extends Application implements EventHandler<Action
     public void start(Stage primaryStage) throws Exception {
         window = primaryStage;
 
-        Label label0 = new Label("Welcome!");
-        Label label1 = new Label("This is a codecooler vs bugs game, have fun!");
-        Label label2 = new Label("\"The best gaming experience since Super Mario\" - Washington Post");
-
-        Button btnPlay = new Button("Play");
-        btnPlay.setOnAction(e -> window.setScene(game));
-
-        Button btnExit = new Button("Exit");
-        btnExit.setOnAction(e -> System.exit(0));
-
-        VBox layout1 = new VBox(20);
-        layout1.setAlignment(Pos.CENTER);
-        layout1.getChildren().addAll(label0, label1, btnPlay, btnExit, label2);
-        menu = new Scene(layout1,800, 600);
-
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("T&T Studios Alert");
         alert.setHeaderText("Do you really want to run that file? Are you sure?");
         alert.setContentText("You are insane if you click this button:");
 
         alert.showAndWait();
+
+        //Scene menu
+        Label label1 = new Label("Welcome codecooler!");
+        Label label2 = new Label("\"The best gaming experience since Super Mario\" - Washington Post");
+
+        Button btnPlay = new Button("Play");
+        btnPlay.setOnAction(e -> window.setScene(game));
+
+        Button btnInstructions = new Button(("Instructions"));
+        btnInstructions.setOnAction(e -> window.setScene(instructions));
+
+        Button btnExit = new Button("Exit");
+        btnExit.setOnAction(e -> System.exit(0));
+
+        VBox layout1 = new VBox(20);
+        layout1.setAlignment(Pos.CENTER);
+        layout1.getChildren().addAll(label1, btnPlay, btnInstructions, btnExit, label2);
+
+        menu = new Scene(layout1, 800, 600);
 
         menu.getStylesheets().add(CodecoolerVsBugs.class.getResource("images/menu.css").toExternalForm());
 
@@ -161,12 +166,38 @@ public class CodecoolerVsBugs extends Application implements EventHandler<Action
                 case ESCAPE:
                     System.exit(0);
                     break;
+                case I:
+                    window.setScene(instructions);
+                    break;
                 case P:
                     window.setScene(game);
                     break;
             }
         });
 
+        //Scene instructions
+        Label label3 = new Label("You will control our fictional character, just name him for example : \"Józsi\". \n\n" + "He is a very important person, he got the code of life. Help him to deliver it!" +
+                "\n\nPress \"A\", \"S\", \"D\", \"W\" to move.\n\n" +
+                "Press \"ESC\" for the main menu.\n\n" +
+                "Good luck!");
+        
+        VBox layout2 = new VBox(20);
+        layout2.setAlignment(Pos.CENTER);
+        layout2.getChildren().addAll(label3);
+
+        instructions = new Scene(layout2, 800, 600);
+
+        instructions.setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+                case ESCAPE:
+                    window.setScene(menu);
+                    break;
+            }
+        });
+
+        instructions.getStylesheets().add(CodecoolerVsBugs.class.getResource("images/menu.css").toExternalForm());
+
+        // Scene game
         game = new Scene(createContent());
 
         game.getStylesheets().add(CodecoolerVsBugs.class.getResource("images/game.css").toExternalForm());
