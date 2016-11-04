@@ -64,6 +64,7 @@ public class CodecoolerVsBugs extends Application implements EventHandler<Action
         Image img = new Image("images/jozsi.png");
         ImageView imgView = new ImageView(img);
         imgView.setTranslateY(600 - 39);
+        imgView.setTranslateX(400 - 38);
 
         return imgView;
     }
@@ -93,7 +94,7 @@ public class CodecoolerVsBugs extends Application implements EventHandler<Action
     private void checkState() {
         for (Node bug : bugs) {
             if (bug.getBoundsInParent().intersects(codecooler.getBoundsInParent())) {
-                codecooler.setTranslateX(0);
+                codecooler.setTranslateX(400 - 38);
                 codecooler.setTranslateY(600 - 39);
                 return;
             }
