@@ -14,6 +14,9 @@
         import javafx.scene.layout.Pane;
         import javafx.scene.layout.VBox;
         import javafx.scene.paint.Color;
+        import javafx.scene.image.Image;
+        import javafx.scene.image.ImageView;
+        import javafx.scene.layout.StackPane;
         import javafx.scene.shape.Rectangle;
         import javafx.scene.text.Font;
         import javafx.scene.text.FontWeight;
@@ -58,20 +61,23 @@ public class CodecoolerVsBugs extends Application implements EventHandler<Action
     }
 
     private Node initCodecooler() {
-        Rectangle rect = new Rectangle(38, 38, Color.BLUE);
-        rect.setTranslateY(600 - 39);
+        Image img = new Image("images/jozsi.png");
+        ImageView imgView = new ImageView(img);
+        imgView.setTranslateY(600 - 39);
 
-        return rect;
+        return imgView;
     }
 
     private Node spawnBugs() {
-        Rectangle rect = new Rectangle(40, 40, Color.BLACK);
-        rect.setTranslateY((int)(Math.random() * 14) * 40);
+        Image img = new Image("images/bugicon.png");
+        ImageView imgView = new ImageView(img);
+        imgView.setTranslateY((int)(Math.random() * 14) * 40);
 
-        root.getChildren().add(rect);
-        return rect;
+        root.getChildren().add(imgView);
+
+        return imgView;
     }
-
+    
     private void onUpdate() {
         for (Node bug : bugs)
             bug.setTranslateX(bug.getTranslateX() + Math.random() * 15);
