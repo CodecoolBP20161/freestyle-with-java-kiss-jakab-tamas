@@ -7,6 +7,7 @@
         import javafx.scene.Node;
         import javafx.scene.Parent;
         import javafx.scene.Scene;
+        import javafx.scene.control.Alert;
         import javafx.scene.control.Button;
         import javafx.scene.control.Label;
         import javafx.scene.layout.HBox;
@@ -73,9 +74,10 @@ public class CodecoolerVsBugs extends Application implements EventHandler<Action
 
     private void onUpdate() {
         for (Node bug : bugs)
-            bug.setTranslateX(bug.getTranslateX() + Math.random() * 10);
+            bug.setTranslateX(bug.getTranslateX() + Math.random() * 15);
 
         if (Math.random() < 0.075) {
+            bugs.add(spawnBugs());
             bugs.add(spawnBugs());
         }
 
@@ -124,7 +126,7 @@ public class CodecoolerVsBugs extends Application implements EventHandler<Action
         window = primaryStage;
 
         Label label0 = new Label("Welcome!");
-        Label label1 = new Label("This is a frog vs cars game, have fun!");
+        Label label1 = new Label("This is a codecooler vs bugs game, have fun!");
         Label label2 = new Label("\"The best gaming experience since Super Mario\" - Washington Post");
 
         Button btnPlay = new Button("Play");
@@ -137,6 +139,13 @@ public class CodecoolerVsBugs extends Application implements EventHandler<Action
         layout1.setAlignment(Pos.CENTER);
         layout1.getChildren().addAll(label0, label1, btnPlay, btnExit, label2);
         menu = new Scene(layout1,800, 600);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("T&T Studios Alert");
+        alert.setHeaderText("Do you really want to run that file? Are you sure?");
+        alert.setContentText("You are insane if you click this button:");
+
+        alert.showAndWait();
 
         menu.getStylesheets().add(CodecoolerVsBugs.class.getResource("images/menu.css").toExternalForm());
 
@@ -176,7 +185,7 @@ public class CodecoolerVsBugs extends Application implements EventHandler<Action
         });
 
         window.setScene(menu);
-        window.setTitle("T&T Studios represents, The amazing frog game");
+        window.setTitle("T&T Studios represents");
         window.show();
     }
 
